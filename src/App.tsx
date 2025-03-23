@@ -5,7 +5,7 @@ import { Upload } from "lucide-react";
 
 function App() {
 	const [text, setText] = useState("");
-	const [wpm, setWpm] = useState(+!localStorage.getItem("lastWpm") || 120);
+	const [wpm, setWpm] = useState(120);
 
 	const calculateReadingTime = (text: string) => {
 		const words = text === "" ? 0 : text.trim().split(/\s+/).length;
