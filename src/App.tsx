@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { Slider } from "radix-ui";
 import { useDropzone } from "react-dropzone";
 import { Upload } from "lucide-react";
@@ -7,16 +7,19 @@ function App() {
 	const [text, setText] = useState("");
 	const [wpm, setWpm] = useState(120);
 
-	const calculateReadingTime = (text: string) => {
-		const words = text === "" ? 0 : text.trim().split(/\s+/).length;
-		const minutes = words / wpm;
-		const hours = Math.floor(minutes / 60);
-		const remainingMinutes = Math.floor(minutes % 60);
+	const calculateReadingTime = useCallback(
+		(text: string) => {
+			const words = text === "" ? 0 : text.trim().split(/\s+/).length;
+			const minutes = words / wpm;
+			const hours = Math.floor(minutes / 60);
+			const remainingMinutes = Math.floor(minutes % 60);
 
-		const seconds = Math.floor((minutes * 60) % 60);
+			const seconds = Math.floor((minutes * 60) % 60);
 
-		return { hours, minutes: remainingMinutes, seconds };
-	};
+			return { hours, minutes: remainingMinutes, seconds };
+		},
+		[wpm]
+	);
 
 	const onDrop = useCallback((acceptedFiles: File[]) => {
 		acceptedFiles.forEach((file) => {
@@ -49,7 +52,10 @@ function App() {
 		localStorage.setItem("lastWpm", value[0].toString());
 	}, []);
 
-	const readingTime = calculateReadingTime(text);
+	const readingTime = useMemo(
+		() => calculateReadingTime(text),
+		[text, calculateReadingTime]
+	);
 
 	return (
 		<div className='min-h-screen min-w-screen bg-gradient-custom text-zinc-100 p-8 place-content-center'>
