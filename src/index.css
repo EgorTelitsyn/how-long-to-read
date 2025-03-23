@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap");
+
+@import "tailwindcss";
+
+@tailwind utilities;
+
+.bg-gradient-custom {
+	background-image: linear-gradient(to right, #03080a, #10061f, #0b1824);
+}
+
+:root {
+	font-family: system-ui, Inter, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 200;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	--background: 0 0% 100%;
+	--foreground: 222.2 84% 4.9%;
+}
+
+.dark {
+	--background: 222.2 84% 4.9%;
+	--foreground: 0 0% 100%;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	place-items: center;
+	min-width: 320px;
+	min-height: 100vh;
+	@apply bg-[hsl(var(--background))] text-[hsl(var(--foreground))] min-h-screen;
+}
+
+h1 {
+	font-size: 3.2em;
+	line-height: 1.1;
+}
+
+button {
+	border-radius: 8px;
+	border: 1px solid transparent;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: #1a1a1a;
+	cursor: pointer;
+	transition: border-color 0.25s;
+}
+button:hover {
+	border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+	outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
+	a:hover {
+		color: #747bff;
+	}
+	button {
+		background-color: #f9f9f9;
+	}
+}
+
+.SliderRoot {
+	@apply relative flex items-center select-none touch-none w-full h-5;
+}
+
+.SliderTrack {
+	@apply bg-gradient-to-tr to-green-800/30 from-purple-900/30 relative grow rounded-full h-[3px];
+}
+
+.SliderRange {
+	@apply absolute bg-gradient-to-tr from-green-400 to-purple-600 rounded-full h-full;
+}
+.SliderThumb {
+	@apply block w-5 h-5 transition-colors bg-slate-300 shadow-md rounded-3xl;
+}
+.SliderThumb:hover {
+	@apply bg-slate-200;
+}
+.SliderThumb:focus {
+	@apply bg-white outline-none;
+}
