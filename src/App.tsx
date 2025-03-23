@@ -6,10 +6,12 @@ import { Upload } from "lucide-react";
 function App() {
 	const [text, setText] = useState("");
 	const [wpm, setWpm] = useState(120);
+	const [words, setWords] = useState(0);
 
 	const calculateReadingTime = useCallback(
 		(text: string) => {
 			const words = text === "" ? 0 : text.trim().split(/\s+/).length;
+			setWords(words);
 			const minutes = words / wpm;
 			const hours = Math.floor(minutes / 60);
 			const remainingMinutes = Math.floor(minutes % 60);
@@ -106,13 +108,18 @@ function App() {
 				</div>
 
 				<div className='flex flex-col items-center gap-4'>
-					<div className='text-center text-lg'>
-						Время чтения:{" "}
-						<span className='font-medium'>
-							{readingTime.hours > 0 && `${readingTime.hours} ч `}
-							{readingTime.minutes > 0 && `${readingTime.minutes} мин `}
-							{readingTime.seconds} сек
-						</span>
+					<div className='flex gap-4'>
+						<div className='text-center text-lg'>
+							Всего: <span className='font-medium'>{words} слов</span>
+						</div>
+						<div className='text-center text-lg'>
+							Время чтения:{" "}
+							<span className='font-medium'>
+								{readingTime.hours > 0 && `${readingTime.hours} ч `}
+								{readingTime.minutes > 0 && `${readingTime.minutes} мин `}
+								{readingTime.seconds} сек
+							</span>
+						</div>
 					</div>
 					<button
 						onClick={open}
